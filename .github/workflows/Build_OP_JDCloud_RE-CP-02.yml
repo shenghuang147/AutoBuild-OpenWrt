@@ -60,6 +60,7 @@ jobs:
       run: |
         git clone --depth 1 ${{ env.REPO_URL }} -b ${{ env.REPO_BRANCH }} openwrt
         cd openwrt
+        echo "src-git myPackages https://github.com/shenghuang147/openwrt-packages.git" >> ./feeds.conf.default
 
     - name: Update & Install feeds
       working-directory: ./openwrt
