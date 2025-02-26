@@ -1,0 +1,36 @@
+From ecc53240945c95bc77663b79ccae6e2bd046c9c8 Mon Sep 17 00:00:00 2001
+From: Tony Ambardar <itugrok@yahoo.com>
+Date: Fri, 26 May 2023 23:22:56 -0700
+Subject: [PATCH] kernel: kmod-rxrpc: add missing dependencies
+
+From commit dc0e6056de ("rxrpc: Fix missing dependency on NET_UDP_TUNNEL")
+upstream, kmod-rxrpc uses functions enabled by CONFIG_NET_UDP_TUNNEL.
+
+Add package dependencies on kmod-udptunnel4 and kmod-udptunnel6 to avoid
+build errors like:
+
+  Package kmod-rxrpc is missing dependencies for the following libraries:
+    ip6_udp_tunnel.ko
+    udp_tunnel.ko
+
+This change applies to both kernels 5.15 and 6.1.
+
+Signed-off-by: Tony Ambardar <itugrok@yahoo.com>
+---
+ package/kernel/linux/modules/netsupport.mk | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/package/kernel/linux/modules/netsupport.mk b/package/kernel/linux/modules/netsupport.mk
+index dcc2799c79..3cbbf6c104 100644
+--- a/package/kernel/linux/modules/netsupport.mk
++++ b/package/kernel/linux/modules/netsupport.mk
+@@ -1288,7 +1288,8 @@ define KernelPackage/rxrpc
+   FILES:= \
+ 	$(LINUX_DIR)/net/rxrpc/rxrpc.ko
+   AUTOLOAD:=$(call AutoLoad,30,rxrpc.ko)
+-  DEPENDS:= +kmod-crypto-manager +kmod-crypto-pcbc +kmod-crypto-fcrypt
++  DEPENDS:= +kmod-crypto-manager +kmod-crypto-pcbc +kmod-crypto-fcrypt \
++    +kmod-udptunnel4 +kmod-udptunnel6
+ endef
+ 
+ define KernelPackage/rxrpc/description
