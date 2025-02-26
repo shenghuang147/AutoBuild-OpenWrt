@@ -1,0 +1,43 @@
+diff --git a/a/package/kernel/mac80211/files/lib/wifi/mac80211.sh b/b/package/kernel/mac80211/files/lib/wifi/mac80211.sh
+index e24a2a6..7291326 100644
+--- a/a/package/kernel/mac80211/files/lib/wifi/mac80211.sh
++++ b/b/package/kernel/mac80211/files/lib/wifi/mac80211.sh
+@@ -158,6 +158,18 @@ detect_mac80211() {
+ 
+ 		dev="${_dev##*/}"
+ 
++		br_lan_suffix=$(cat /sys/class/net/lan1/address |awk -F ":" '{print "_"$5$6}')
++		index=$(cat "$_dev"/index)
++
++		case "$index" in
++			0)
++				ssid_suffix="_2.4G"
++				;;
++			1)
++				ssid_suffix="_5G"
++				;;
++		esac
++
+ 		mode_band=""
+ 		channel=""
+ 		htmode=""
+@@ -200,16 +212,16 @@ detect_mac80211() {
+ 			set wireless.${name}=wifi-device
+ 			set wireless.${name}.type=mac80211
+ 			${dev_id}
+-			set wireless.${name}.channel=${channel}
++			set wireless.${name}.channel=auto
+ 			set wireless.${name}.band=${mode_band}
+ 			set wireless.${name}.htmode=$htmode
+-			set wireless.${name}.disabled=1
++			set wireless.${name}.disabled=0
+ 
+ 			set wireless.default_${name}=wifi-iface
+ 			set wireless.default_${name}.device=${name}
+ 			set wireless.default_${name}.network=lan
+ 			set wireless.default_${name}.mode=ap
+-			set wireless.default_${name}.ssid=OpenWrt
++			set wireless.default_${name}.ssid=OpenWrt${br_lan_suffix}${ssid_suffix}
+ 			set wireless.default_${name}.encryption=none
+ EOF
+ 		uci -q commit wireless

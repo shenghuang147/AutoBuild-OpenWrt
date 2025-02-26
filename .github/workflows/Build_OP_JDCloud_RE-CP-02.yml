@@ -52,8 +52,8 @@ jobs:
         sudo -E apt-get clean
     - name: Clone source code
       env: 
-        REPO_URL: https://github.com/shenghuang147/openwrt.git
-        REPO_BRANCH: 23.05_RE-CP-02
+        REPO_URL: https://github.com/openwrt/openwrt.git
+        REPO_BRANCH: v23.05.0
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
@@ -64,6 +64,9 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         ./scripts/feeds install -a
+        for patch_file in "${GITHUB_WORKSPACE}/patches/JDCloud_RE-CP-02"/*.patch; do
+            patch -p1 < "$patch_file"
+        done
     
     #- name: Import external feeds - JerryKuKu Argon
     #  working-directory: ./openwrt

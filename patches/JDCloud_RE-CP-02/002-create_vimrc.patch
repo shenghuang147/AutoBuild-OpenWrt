@@ -1,0 +1,9 @@
+diff --git a/package/base-files/files/etc/uci-defaults/99_create-vimrc b/package/base-files/files/etc/uci-defaults/99_create-vimrc
+new file mode 100644
+index 0000000000..9a8630b661
+--- /dev/null
++++ b/package/base-files/files/etc/uci-defaults/99_create-vimrc
+@@ -0,0 +1,3 @@
++#!/bin/sh
++
++touch /root/.vimrc
