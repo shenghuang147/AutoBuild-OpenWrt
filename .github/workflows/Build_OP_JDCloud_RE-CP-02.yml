@@ -83,7 +83,7 @@ jobs:
     #  run: |
     #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-jerrykuku
     
-    - name: Configuration Customization - Build_${{ env.DEVICE_MODEL }}
+    - name: Configuration Customization - Build_JDCloud_RE-CP-02
       run: |
         [ -e ${{ env.CONFIG_FILE }} ] && mv ${{ env.CONFIG_FILE }} openwrt/.config
         chmod +x ./customize.sh && ./customize.sh
