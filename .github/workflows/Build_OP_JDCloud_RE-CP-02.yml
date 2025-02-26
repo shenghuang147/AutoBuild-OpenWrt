@@ -11,7 +11,7 @@ env:
     DEVICE_MODEL: JDCloud_RE-CP-02
     REPO_URL: https://github.com/openwrt/openwrt.git
     REPO_BRANCH: v23.05.0
-    CONFIG_FILE: ${{ env.DEVICE_MODEL }}.config'
+    CONFIG_FILE: JDCloud_RE-CP-02.config'
 
 # Add a button to trigger the workflow
 on: 
