@@ -7,6 +7,12 @@
 
 name: JDCloud_RE-CP-02
 
+env:
+    DEVICE_MODEL: JDCloud_RE-CP-02
+    REPO_URL: https://github.com/openwrt/openwrt.git
+    REPO_BRANCH: v23.05.0
+    CONFIG_FILE: ${{ env.DEVICE_MODEL }}.config'
+
 # Add a button to trigger the workflow
 on: 
   repository_dispatch:
@@ -51,11 +57,8 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
     - name: Clone source code
-      env: 
-        REPO_URL: https://github.com/openwrt/openwrt.git
-        REPO_BRANCH: v23.05.0
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        git clone --depth 1 ${{ env.REPO_URL }} -b ${{ env.REPO_BRANCH }} openwrt
         cd openwrt
 
     - name: Update & Install feeds
@@ -64,20 +67,24 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         ./scripts/feeds install -a
-        for patch_file in "${GITHUB_WORKSPACE}/patches/JDCloud_RE-CP-02"/*.patch; do
+    
+    - name: Loading Patches
+      working-directory: ./openwrt
+      run: |
+        mkdir -p "${GITHUB_WORKSPACE}/patches/${{ env.REPO_BRANCH }}/${{ env.DEVICE_MODEL }}"
+
+        for patch_file in "${GITHUB_WORKSPACE}/patches/${{ env.REPO_BRANCH }}/${{ env.DEVICE_MODEL }}"/*.patch; do
             patch -p1 < "$patch_file"
         done
-    
+
     #- name: Import external feeds - JerryKuKu Argon
     #  working-directory: ./openwrt
     #  run: |
     #    git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon-jerrykuku
     
-    - name: Configuration Customization - Build_JDCloud_RE-CP-02
-      env:
-        CONFIG_FILE: 'JDCloud_RE-CP-02.config'
+    - name: Configuration Customization - Build_${{ env.DEVICE_MODEL }}
       run: |
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e ${{ env.CONFIG_FILE }} ] && mv ${{ env.CONFIG_FILE }} openwrt/.config
         chmod +x ./customize.sh && ./customize.sh
         cd openwrt && make defconfig
         
