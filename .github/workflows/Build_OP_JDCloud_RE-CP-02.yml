@@ -78,6 +78,10 @@ jobs:
             patch -p1 < "$patch_file"
         done
 
+    - name: Replace Package
+      run: |
+        ./replace_package.sh
+
     #- name: Import external feeds - JerryKuKu Argon
     #  working-directory: ./openwrt
     #  run: |
