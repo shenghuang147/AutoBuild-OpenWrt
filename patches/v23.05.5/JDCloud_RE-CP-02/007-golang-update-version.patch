@@ -1,7 +1,7 @@
-diff --git a/lang/golang/golang-build.sh b/lang/golang/golang-build.sh
+diff --git a/feeds/packages/lang/golang/golang-build.sh a/feeds/packages/lang/golang/golang-build.sh
 index fe8718ee7..01df4aa42 100644
---- a/lang/golang/golang-build.sh
-+++ b/lang/golang/golang-build.sh
+--- a/feeds/packages/lang/golang/golang-build.sh
++++ a/feeds/packages/lang/golang/golang-build.sh
 @@ -120,7 +120,7 @@ build() {
  	if [ "$GO_GO_GENERATE" = 1 ]; then
  		log "Calling go generate"
@@ -11,10 +11,10 @@ index fe8718ee7..01df4aa42 100644
  		go generate -v $targets
  		log
  	fi
-diff --git a/lang/golang/golang-compiler.mk b/lang/golang/golang-compiler.mk
+diff --git a/feeds/packages/lang/golang/golang-compiler.mk a/feeds/packages/lang/golang/golang-compiler.mk
 index 50cc44905..44defed7b 100644
---- a/lang/golang/golang-compiler.mk
-+++ b/lang/golang/golang-compiler.mk
+--- a/feeds/packages/lang/golang/golang-compiler.mk
++++ a/feeds/packages/lang/golang/golang-compiler.mk
 @@ -19,14 +19,11 @@ define GoCompiler/Default/CheckHost
  endef
  
@@ -41,10 +41,10 @@ index 50cc44905..44defed7b 100644
    endef
  
    # $$(1) override install prefix (optional)
-diff --git a/lang/golang/golang-values.mk b/lang/golang/golang-values.mk
+diff --git a/feeds/packages/lang/golang/golang-values.mk a/feeds/packages/lang/golang/golang-values.mk
 index 1584d22fc..d57de5f32 100644
---- a/lang/golang/golang-values.mk
-+++ b/lang/golang/golang-values.mk
+--- a/feeds/packages/lang/golang/golang-values.mk
++++ a/feeds/packages/lang/golang/golang-values.mk
 @@ -59,11 +59,13 @@ unexport \
  # Architecture-specific environment variables:
  unexport \
@@ -81,10 +81,10 @@ index 1584d22fc..d57de5f32 100644
  
  
  # ASLR/PIE
-diff --git a/lang/golang/golang/Makefile b/lang/golang/golang/Makefile
+diff --git a/feeds/packages/lang/golang/golang/Makefile a/feeds/packages/lang/golang/golang/Makefile
 index b95fca724..b00ea8509 100644
---- a/lang/golang/golang/Makefile
-+++ b/lang/golang/golang/Makefile
+--- a/feeds/packages/lang/golang/golang/Makefile
++++ a/feeds/packages/lang/golang/golang/Makefile
 @@ -7,8 +7,8 @@
  
  include $(TOPDIR)/rules.mk
