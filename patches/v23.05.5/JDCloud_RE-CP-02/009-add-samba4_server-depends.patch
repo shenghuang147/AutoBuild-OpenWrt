@@ -1,0 +1,13 @@
+diff --git a/feeds/packages/net/samba4/Makefile b/feeds/packages/net/samba4/Makefile
+index 4afa87463..205a66467 100644
+--- a/feeds/packages/net/samba4/Makefile
++++ b/feeds/packages/net/samba4/Makefile
+@@ -74,7 +74,7 @@ endef
+ define Package/samba4-server
+   $(call Package/samba4/Default)
+   TITLE+= server
+-  DEPENDS:= +samba4-libs
++  DEPENDS:= +samba4-libs +wsdd2
+   CONFLICTS:=samba36-server
+ endef
+ 
